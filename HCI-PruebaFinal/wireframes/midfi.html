@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframe Mid-Fi — Usability Test Dashboard 2.0</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --navy: #003366;
+    --navy-light: #0a4080;
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --green-500: #22c55e;
+    --green-50: #f0fdf4;
+    --amber-500: #f59e0b;
+    --red-500: #ef4444;
+    --red-50: #fef2f2;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #e8ecf0;
+    font-family: 'IBM Plex Sans', sans-serif;
+    padding: 32px 16px;
+    min-height: 100vh;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .page-header h1 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--slate-500);
+    margin-bottom: 4px;
+  }
+  .page-header p {
+    font-size: 11px;
+    color: var(--slate-400);
+  }
+
+  /* SCREEN WRAPPER */
+  .screen {
+    max-width: 940px;
+    margin: 0 auto;
+    background: var(--slate-50);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--white);
+    border-bottom: 1px solid var(--slate-200);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--navy);
+    border-radius: 8px;
+  }
+  .logo-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--slate-800);
+    letter-spacing: -0.3px;
+  }
+  .logo-text span {
+    font-weight: 400;
+    color: var(--slate-400);
+    font-size: 11px;
+    display: block;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .user-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px 4px 4px;
+    border: 1px solid var(--slate-200);
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+  }
+  .user-name { font-size: 12px; font-weight: 500; color: var(--slate-700); }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    padding: 8px 24px;
+    background: var(--white);
+    border-bottom: 1px solid var(--slate-100);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+  }
+  .breadcrumb a { color: var(--navy); text-decoration: none; font-weight: 500; }
+  .breadcrumb .sep { color: var(--slate-300); font-size: 14px; }
+  .breadcrumb .current { color: var(--slate-500); }
+
+  /* STEPPER */
+  .stepper-wrap {
+    background: var(--white);
+    border-bottom: 2px solid var(--slate-200);
+    padding: 14px 24px 10px;
+  }
+  .stepper {
+    display: flex;
+    align-items: flex-start;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+  }
+  .step-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid var(--slate-300);
+    color: var(--slate-400);
+    background: var(--white);
+    transition: all 0.2s;
+  }
+  .step-circle.done {
+    background: var(--green-500);
+    border-color: var(--green-500);
+    color: white;
+    font-size: 14px;
+  }
+  .step-circle.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: white;
+    box-shadow: 0 0 0 4px rgba(0,51,102,0.12);
+    transform: scale(1.1);
+  }
+  .step-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--slate-400);
+    text-align: center;
+    white-space: nowrap;
+  }
+  .step-label.active { color: var(--navy); font-weight: 700; }
+  .step-label.done { color: var(--green-500); }
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: var(--slate-200);
+    margin-top: 14px;
+    margin-bottom: 19px;
+  }
+  .step-connector.done { background: var(--green-500); }
+
+  /* MAIN BODY */
+  .main {
+    padding: 20px 24px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--slate-400);
+    margin-bottom: 10px;
+  }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .kpi-card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 10px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--slate-200);
+  }
+  .kpi-card.accent-green::before { background: var(--green-500); }
+  .kpi-card.accent-red::before { background: var(--red-500); }
+  .kpi-card.accent-amber::before { background: var(--amber-500); }
+  .kpi-card.accent-navy::before { background: var(--navy); }
+
+  .kpi-icon-wrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  .kpi-icon-wrap.green { background: var(--green-50); }
+  .kpi-icon-wrap.red { background: var(--red-50); }
+  .kpi-icon-wrap.amber { background: #fffbeb; }
+  .kpi-icon-wrap.navy { background: #eff6ff; }
+
+  .kpi-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--slate-800);
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .kpi-label { font-size: 11px; color: var(--slate-500); font-weight: 500; }
+  .kpi-meta {
+    margin-top: 8px;
+    font-size: 10px;
+    color: var(--slate-400);
+    padding-top: 8px;
+    border-top: 1px solid var(--slate-100);
+  }
+
+  /* QUICK ACTIONS */
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .action-card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 10px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .action-card:hover {
+    border-color: var(--navy);
+    background: #eff6ff;
+  }
+  .action-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--slate-100);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .action-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--slate-600, #475569);
+    text-align: center;
+  }
+  .action-desc {
+    font-size: 9px;
+    color: var(--slate-400);
+    text-align: center;
+  }
+
+  /* BOTTOM GRID */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .card-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--slate-700);
+    margin-bottom: 14px;
+  }
+
+  /* CHART */
+  .chart-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .chart-label { font-size: 11px; color: var(--slate-500); width: 70px; }
+  .chart-track {
+    flex: 1;
+    height: 14px;
+    background: var(--slate-100);
+    border-radius: 7px;
+    overflow: hidden;
+  }
+  .chart-fill {
+    height: 100%;
+    border-radius: 7px;
+    background: var(--slate-300);
+  }
+  .chart-fill.green { background: #86efac; }
+  .chart-fill.amber { background: #fcd34d; }
+  .chart-fill.red { background: #fca5a5; }
+  .chart-pct { font-size: 10px; color: var(--slate-400); width: 28px; text-align: right; }
+
+  /* PLANS LIST */
+  .plan-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--slate-100);
+    cursor: pointer;
+  }
+  .plan-item:last-child { border-bottom: none; }
+  .plan-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-green { background: var(--green-500); }
+  .dot-amber { background: var(--amber-500); }
+  .dot-slate { background: var(--slate-300); }
+  .plan-info { flex: 1 }
+  .plan-name { font-size: 12px; font-weight: 600; color: var(--slate-700); }
+  .plan-meta { font-size: 10px; color: var(--slate-400); }
+  .plan-badge {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 9px;
+    font-weight: 600;
+  }
+  .badge-active { background: #dcfce7; color: #15803d; }
+  .badge-draft { background: var(--slate-100); color: var(--slate-500); }
+  .badge-done { background: #dbeafe; color: #1d4ed8; }
+  .plan-arrow { color: var(--slate-300); font-size: 14px; }
+
+  /* CTA */
+  .cta-row {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .cta-plus {
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  /* TOAST DEMO */
+  .toast-demo {
+    position: relative;
+    margin-top: 4px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-left: 4px solid var(--green-500);
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    font-size: 12px;
+    max-width: 300px;
+  }
+  .toast-icon {
+    width: 20px;
+    height: 20px;
+    background: var(--green-50);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+    color: var(--green-500);
+  }
+  .toast-text { color: var(--slate-700); font-weight: 500; }
+  .toast-close { color: var(--slate-300); cursor: pointer; margin-left: 8px; font-size: 14px; }
+  .toast-progress {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    width: 60%;
+    background: var(--green-500);
+    border-radius: 0 0 0 8px;
+    opacity: 0.5;
+  }
+
+  /* ANNOTATIONS PANEL */
+  .annotations {
+    max-width: 940px;
+    margin: 24px auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .ann-card {
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .ann-card-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--slate-100);
+  }
+  .ann-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .ann-tag {
+    background: var(--slate-100);
+    color: var(--slate-500);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-top: 1px;
+  }
+  .ann-desc { font-size: 11px; color: var(--slate-500); line-height: 1.5; }
+  .ann-desc strong { color: var(--slate-700); }
+
+  /* SPEC TABLE */
+  .spec-table { width: 100%; border-collapse: collapse; }
+  .spec-table td {
+    padding: 5px 8px;
+    font-size: 11px;
+    border-bottom: 1px solid var(--slate-100);
+    vertical-align: top;
+  }
+  .spec-table td:first-child {
+    font-weight: 600;
+    color: var(--slate-600, #475569);
+    width: 40%;
+    white-space: nowrap;
+  }
+  .spec-table td:last-child { color: var(--slate-500); }
+  .color-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Wireframe Mid-Fi — Usability Test Dashboard 2.0</h1>
+  <p>Fase 3 — Rediseño UX · Fidelidad Media · Espaciado, Colores y Tipografía</p>
+</div>
+
+<div class="screen">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <div class="logo-mark"></div>
+      <div class="logo-text">
+        Usability Test
+        <span>Dashboard 2.0</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="user-chip">
+        <div class="user-avatar">JC</div>
+        <div class="user-name">Jose Caiza</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="#">Proyectos</a>
+    <span class="sep">›</span>
+    <a href="#">Plan de Prueba Alpha</a>
+    <span class="sep">›</span>
+    <span class="current">Dashboard</span>
+  </div>
+
+  <!-- STEPPER -->
+  <div class="stepper-wrap">
+    <div class="stepper">
+      <div class="step">
+        <div class="step-circle done">✓</div>
+        <div class="step-label done">Plan</div>
+      </div>
+      <div class="step-connector done"></div>
+      <div class="step">
+        <div class="step-circle active">2</div>
+        <div class="step-label active">Guion</div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-circle">3</div>
+        <div class="step-label">Observaciones</div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-circle">4</div>
+        <div class="step-label">Hallazgos</div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-circle">5</div>
+        <div class="step-label">Reportes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- KPIs -->
+    <div class="section-label">Métricas del plan</div>
+    <div class="kpi-grid">
+      <div class="kpi-card accent-green">
+        <div class="kpi-icon-wrap green">📈</div>
+        <div class="kpi-value">75%</div>
+        <div class="kpi-label">Tasa de Éxito</div>
+        <div class="kpi-meta">↑ 5% vs sesión anterior</div>
+      </div>
+      <div class="kpi-card accent-red">
+        <div class="kpi-icon-wrap red">🔍</div>
+        <div class="kpi-value">12</div>
+        <div class="kpi-label">Hallazgos totales</div>
+        <div class="kpi-meta">3 críticos · 4 moderados</div>
+      </div>
+      <div class="kpi-card accent-amber">
+        <div class="kpi-icon-wrap amber">⏱</div>
+        <div class="kpi-value">2m30</div>
+        <div class="kpi-label">Tiempo por tarea</div>
+        <div class="kpi-meta">Promedio · 8 tareas</div>
+      </div>
+      <div class="kpi-card accent-navy">
+        <div class="kpi-icon-wrap navy">🎯</div>
+        <div class="kpi-value">--</div>
+        <div class="kpi-label">Score UX</div>
+        <div class="kpi-meta">Mejorable</div>
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="section-label">Ir a sección</div>
+    <div class="actions-grid">
+      <div class="action-card">
+        <div class="action-icon">📋</div>
+        <div class="action-label">Plan</div>
+        <div class="action-desc">Contexto y objetivos</div>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">📝</div>
+        <div class="action-label">Guion</div>
+        <div class="action-desc">Tareas del test</div>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">👁</div>
+        <div class="action-label">Observaciones</div>
+        <div class="action-desc">Registro por tarea</div>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">🔍</div>
+        <div class="action-label">Hallazgos</div>
+        <div class="action-desc">Problemas detectados</div>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">📊</div>
+        <div class="action-label">Reportes</div>
+        <div class="action-desc">Resultados finales</div>
+      </div>
+    </div>
+
+    <!-- BOTTOM GRID -->
+    <div class="bottom-grid">
+      <div class="card">
+        <div class="card-title">Distribución de resultados UX</div>
+        <div class="chart-row">
+          <div class="chart-label">Éxito (Sí)</div>
+          <div class="chart-track"><div class="chart-fill green" style="width:60%"></div></div>
+          <div class="chart-pct">60%</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Con ayuda</div>
+          <div class="chart-track"><div class="chart-fill amber" style="width:25%"></div></div>
+          <div class="chart-pct">25%</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Falló (No)</div>
+          <div class="chart-track"><div class="chart-fill red" style="width:15%"></div></div>
+          <div class="chart-pct">15%</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Planes recientes</div>
+        <div class="plan-item">
+          <div class="plan-status-dot dot-green"></div>
+          <div class="plan-info">
+            <div class="plan-name">Plan Alpha — Login</div>
+            <div class="plan-meta">Actualizado: hoy</div>
+          </div>
+          <div class="plan-badge badge-active">Activo</div>
+          <div class="plan-arrow">›</div>
+        </div>
+        <div class="plan-item">
+          <div class="plan-status-dot dot-amber"></div>
+          <div class="plan-info">
+            <div class="plan-name">Plan Beta — Dashboard</div>
+            <div class="plan-meta">Actualizado: ayer</div>
+          </div>
+          <div class="plan-badge badge-draft">Borrador</div>
+          <div class="plan-arrow">›</div>
+        </div>
+        <div class="plan-item">
+          <div class="plan-status-dot dot-slate"></div>
+          <div class="plan-info">
+            <div class="plan-name">Plan Gamma — Formularios</div>
+            <div class="plan-meta">Hace 3 días</div>
+          </div>
+          <div class="plan-badge badge-done">Completado</div>
+          <div class="plan-arrow">›</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA + TOAST DEMO -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px;">
+      <button class="cta-btn">
+        <div class="cta-plus">+</div>
+        Nuevo Plan de Prueba
+      </button>
+      <div class="toast">
+        <div class="toast-icon">✓</div>
+        <div class="toast-text">Plan guardado correctamente</div>
+        <div class="toast-close">×</div>
+        <div class="toast-progress"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ANNOTATIONS -->
+<div class="annotations">
+  <div class="ann-card">
+    <div class="ann-card-title">Sistema de diseño — Colores y tipografía</div>
+    <table class="spec-table">
+      <tr>
+        <td>Primario (navy)</td>
+        <td><span class="color-swatch" style="background:#003366"></span>#003366</td>
+      </tr>
+      <tr>
+        <td>Fondo general</td>
+        <td><span class="color-swatch" style="background:#f8fafc; border:1px solid #e2e8f0"></span>#F8FAFC</td>
+      </tr>
+      <tr>
+        <td>Éxito</td>
+        <td><span class="color-swatch" style="background:#22c55e"></span>#22C55E</td>
+      </tr>
+      <tr>
+        <td>Alerta</td>
+        <td><span class="color-swatch" style="background:#f59e0b"></span>#F59E0B</td>
+      </tr>
+      <tr>
+        <td>Error / Crítico</td>
+        <td><span class="color-swatch" style="background:#ef4444"></span>#EF4444</td>
+      </tr>
+      <tr>
+        <td>Texto principal</td>
+        <td><span class="color-swatch" style="background:#1e293b"></span>#1E293B</td>
+      </tr>
+      <tr>
+        <td>Tipografía</td>
+        <td>IBM Plex Sans 400/600/700</td>
+      </tr>
+      <tr>
+        <td>Grid base</td>
+        <td>8px · Padding cards 16px</td>
+      </tr>
+      <tr>
+        <td>Border radius</td>
+        <td>8px cards · 20px chips</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="ann-card">
+    <div class="ann-card-title">Decisiones de diseño UX</div>
+    <div class="ann-row">
+      <span class="ann-tag">H1</span>
+      <div class="ann-desc"><strong>Stepper visible:</strong> El usuario sabe en qué paso está (paso activo resaltado en navy, pasos completados en verde con ✓).</div>
+    </div>
+    <div class="ann-row">
+      <span class="ann-tag">H1</span>
+      <div class="ann-desc"><strong>Toast de confirmación:</strong> Al guardar, aparece feedback en bottom-right con barra de progreso de 3s. Resuelve problema P-02.</div>
+    </div>
+    <div class="ann-row">
+      <span class="ann-tag">H6</span>
+      <div class="ann-desc"><strong>Breadcrumb siempre visible:</strong> Rutas con enlaces activos permiten reconocer la ubicación y navegar sin recordar la estructura.</div>
+    </div>
+    <div class="ann-row">
+      <span class="ann-tag">H5</span>
+      <div class="ann-desc"><strong>Botón CTA primario:</strong> Color navy sólido con jerarquía clara. Botones secundarios en borde sin relleno, evitando clicks accidentales.</div>
+    </div>
+    <div class="ann-row">
+      <span class="ann-tag">Gestalt</span>
+      <div class="ann-desc"><strong>Barra de color superior en KPIs:</strong> Cada tarjeta tiene un acento de color semántico (verde=bueno, rojo=alerta) aplicando ley de figura-fondo.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

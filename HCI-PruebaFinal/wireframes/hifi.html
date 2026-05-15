@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframe Hi-Fi — Usability Test Dashboard 2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #003366;
+    --navy-hover: #0a4080;
+    --navy-light: #eff6ff;
+    --green-500: #16a34a;
+    --green-100: #dcfce7;
+    --amber-500: #d97706;
+    --amber-100: #fef3c7;
+    --red-500: #dc2626;
+    --red-100: #fee2e2;
+    --blue-100: #dbeafe;
+    --blue-600: #2563eb;
+    --white: #ffffff;
+    --bg: #f1f5f9;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+    --navy-shadow: 0 4px 14px rgba(0,51,102,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    padding: 32px 16px 48px;
+    color: var(--text-primary);
+  }
+
+  /* PAGE TITLE */
+  .page-meta {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .page-meta h1 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .page-meta p { font-size: 11px; color: #cbd5e1; }
+
+  /* APP WRAPPER */
+  .app {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    background: var(--navy);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+  .brand-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.4px;
+  }
+  .brand-sub {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-icon:hover { background: var(--bg); }
+  .user-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px 5px 5px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .user-pill:hover { border-color: var(--navy); }
+  .avatar {
+    width: 30px;
+    height: 30px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 0.5px;
+  }
+  .user-info-name { font-size: 12px; font-weight: 700; color: var(--text-primary); }
+  .user-info-role { font-size: 10px; color: var(--text-muted); }
+
+  /* ─── BREADCRUMB ─── */
+  .breadcrumb-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border-light);
+    padding: 0 28px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .bc-home {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 6px;
+    transition: background 0.1s;
+  }
+  .bc-home:hover { background: var(--navy-light); }
+  .bc-sep { color: var(--border); font-size: 16px; line-height: 1; }
+  .bc-item {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .bc-item:hover { background: var(--navy-light); }
+  .bc-current {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 3px 8px;
+  }
+
+  /* ─── STEPPER ─── */
+  .stepper-bar {
+    background: var(--white);
+    border-bottom: 2px solid var(--border);
+    padding: 12px 28px 10px;
+  }
+  .stepper-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+  }
+  .stp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+  }
+  .stp-ring {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    transition: all 0.25s cubic-bezier(.4,0,.2,1);
+  }
+  .stp-ring.done {
+    background: var(--green-500);
+    color: white;
+    box-shadow: 0 2px 8px rgba(22,163,74,0.3);
+  }
+  .stp-ring.active {
+    background: var(--navy);
+    color: white;
+    box-shadow: var(--navy-shadow);
+    transform: scale(1.15);
+  }
+  .stp-ring.pending {
+    background: var(--white);
+    color: var(--text-muted);
+    border: 2px solid var(--border);
+  }
+  .stp-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .stp-label.done { color: var(--green-500); }
+  .stp-label.active { color: var(--navy); font-weight: 800; }
+  .stp-label.pending { color: var(--text-muted); }
+  .stp-connector {
+    flex: 1;
+    height: 2px;
+    margin-top: 15px;
+    margin-bottom: 22px;
+    border-radius: 1px;
+    transition: background 0.4s;
+  }
+  .stp-connector.done { background: var(--green-500); }
+  .stp-connector.pending { background: var(--border); }
+  .stepper-hint {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+  .stepper-hint strong { color: var(--navy); }
+
+  /* ─── MAIN CONTENT ─── */
+  .content {
+    padding: 22px 28px;
+  }
+
+  /* Section headers */
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+  }
+  .section-link {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  /* ─── KPI GRID ─── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .kpi {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 16px 14px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.15s, transform 0.15s;
+  }
+  .kpi:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  .kpi-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+  .stripe-green { background: linear-gradient(90deg, #16a34a, #4ade80); }
+  .stripe-red   { background: linear-gradient(90deg, #dc2626, #f87171); }
+  .stripe-amber { background: linear-gradient(90deg, #d97706, #fbbf24); }
+  .stripe-navy  { background: linear-gradient(90deg, #003366, #2563eb); }
+
+  .kpi-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .kpi-badge {
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .badge-g { background: var(--green-100); color: var(--green-500); }
+  .badge-r { background: var(--red-100);   color: var(--red-500); }
+  .badge-a { background: var(--amber-100); color: var(--amber-500); }
+  .badge-b { background: var(--blue-100);  color: var(--blue-600); }
+
+  .kpi-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .icon-g { background: var(--green-100); }
+  .icon-r { background: var(--red-100); }
+  .icon-a { background: var(--amber-100); }
+  .icon-b { background: var(--blue-100); }
+
+  .kpi-val {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .kpi-name { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+  .kpi-foot {
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px solid var(--border-light);
+    font-size: 10px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .trend-up   { color: var(--green-500); font-weight: 700; }
+  .trend-down { color: var(--red-500);   font-weight: 700; }
+
+  /* ─── QUICK ACTIONS ─── */
+  .actions-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .action {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 10px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .action:hover {
+    border-color: var(--navy);
+    background: var(--navy-light);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+  .action-ico {
+    width: 38px;
+    height: 38px;
+    background: var(--bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: background 0.15s;
+  }
+  .action:hover .action-ico { background: white; }
+  .action-lbl { font-size: 11px; font-weight: 700; color: var(--text-secondary); }
+  .action-sub { font-size: 9px; color: var(--text-muted); text-align: center; line-height: 1.4; }
+
+  /* ─── BOTTOM GRID ─── */
+  .lower-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .panel-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Chart */
+  .chart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .ci-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    width: 80px;
+    flex-shrink: 0;
+  }
+  .ci-track {
+    flex: 1;
+    height: 10px;
+    background: var(--bg);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .ci-fill { height: 100%; border-radius: 5px; }
+  .fill-g { background: linear-gradient(90deg,#16a34a,#4ade80); }
+  .fill-a { background: linear-gradient(90deg,#d97706,#fbbf24); }
+  .fill-r { background: linear-gradient(90deg,#dc2626,#f87171); }
+  .ci-pct { font-size: 11px; font-weight: 700; color: var(--text-secondary); width: 30px; text-align: right; }
+  .ci-count { font-size: 10px; color: var(--text-muted); width: 38px; text-align: right; }
+
+  /* Plans */
+  .pln {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-light);
+    cursor: pointer;
+    transition: background 0.1s;
+    border-radius: 6px;
+    margin: 0 -6px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .pln:last-child { border-bottom: none; }
+  .pln:hover { background: var(--bg); }
+  .pln-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .pln-body { flex: 1; min-width: 0; }
+  .pln-name { font-size: 12px; font-weight: 700; color: var(--text-primary); truncate: true; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pln-meta { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+  .tag {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .tag-active { background: var(--green-100); color: var(--green-500); }
+  .tag-draft  { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+  .tag-done   { background: var(--blue-100); color: var(--blue-600); }
+  .pln-arr { font-size: 16px; color: var(--text-muted); }
+
+  /* ─── CTA + TOAST ─── */
+  .action-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-shadow: var(--navy-shadow);
+    transition: all 0.15s;
+    letter-spacing: -0.2px;
+  }
+  .btn-primary:hover { background: var(--navy-hover); transform: translateY(-1px); }
+  .btn-plus {
+    width: 22px;
+    height: 22px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  /* TOAST */
+  .toast-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    box-shadow: var(--shadow-lg);
+    font-size: 12px;
+    max-width: 290px;
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn {
+    from { transform: translateX(20px); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+  }
+  .toast-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    border-radius: 0 0 0 10px;
+    animation: shrink 3s linear forwards;
+  }
+  @keyframes shrink { from { width: 100%; } to { width: 0%; } }
+  .toast-bar-green { background: var(--green-500); }
+  .toast-bar-red   { background: var(--red-500); }
+  .t-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .t-icon-ok  { background: var(--green-100); color: var(--green-500); }
+  .t-icon-err { background: var(--red-100);   color: var(--red-500); }
+  .t-msg { flex: 1; font-weight: 600; color: var(--text-primary); }
+  .t-sub { font-size: 10px; color: var(--text-muted); font-weight: 400; }
+  .t-close { color: var(--text-muted); cursor: pointer; font-size: 16px; line-height: 1; }
+
+  /* ─── DESIGN NOTES ─── */
+  .notes-grid {
+    max-width: 1000px;
+    margin: 24px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .note-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .note-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .note-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+  .ni-g { background: var(--green-100); }
+  .ni-b { background: var(--blue-100); }
+  .ni-a { background: var(--amber-100); }
+  .note-title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+  }
+  .note-list { list-style: none; }
+  .note-list li {
+    font-size: 11px;
+    color: var(--text-secondary);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border-light);
+    line-height: 1.5;
+    display: flex;
+    gap: 6px;
+  }
+  .note-list li:last-child { border-bottom: none; }
+  .note-list li::before { content: '→'; color: var(--navy); font-weight: 700; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="page-meta">
+  <h1>Wireframe Hi-Fi — Usability Test Dashboard 2.0</h1>
+  <p>Fase 3 — Rediseño UX · Alta Fidelidad · Diseño final pixel-perfect</p>
+</div>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-mark">🧪</div>
+      <div>
+        <div class="brand-name">Usability Test Dashboard</div>
+        <div class="brand-sub">v2.0 · HCI Platform</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="btn-icon" title="Notificaciones">🔔</div>
+      <div class="btn-icon" title="Configuración">⚙️</div>
+      <div class="user-pill">
+        <div class="avatar">JC</div>
+        <div>
+          <div class="user-info-name">Jose Caiza</div>
+          <div class="user-info-role">UX Engineer</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb-bar" aria-label="Breadcrumb">
+    <a class="bc-home" href="#">🏠 Proyectos</a>
+    <span class="bc-sep">›</span>
+    <a class="bc-item" href="#">Plan Alpha — Login</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">Dashboard</span>
+  </nav>
+
+  <!-- STEPPER -->
+  <div class="stepper-bar">
+    <div class="stepper-inner">
+      <div class="stp">
+        <div class="stp-ring done">✓</div>
+        <div class="stp-label done">Plan</div>
+      </div>
+      <div class="stp-connector done"></div>
+      <div class="stp">
+        <div class="stp-ring done">✓</div>
+        <div class="stp-label done">Guion</div>
+      </div>
+      <div class="stp-connector done"></div>
+      <div class="stp">
+        <div class="stp-ring active">3</div>
+        <div class="stp-label active">Observaciones</div>
+      </div>
+      <div class="stp-connector pending"></div>
+      <div class="stp">
+        <div class="stp-ring pending">4</div>
+        <div class="stp-label pending">Hallazgos</div>
+      </div>
+      <div class="stp-connector pending"></div>
+      <div class="stp">
+        <div class="stp-ring pending">5</div>
+        <div class="stp-label pending">Reportes</div>
+      </div>
+    </div>
+    <p class="stepper-hint">Paso 3 de 5 — <strong>Observaciones</strong></p>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- KPIs -->
+    <div class="section-head">
+      <div class="section-title">Métricas del plan</div>
+      <a class="section-link" href="#">Ver detalle →</a>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-stripe stripe-green"></div>
+        <div class="kpi-top">
+          <div class="kpi-icon icon-g">📈</div>
+          <div class="kpi-badge badge-g">+5%</div>
+        </div>
+        <div class="kpi-val">75%</div>
+        <div class="kpi-name">Tasa de Éxito</div>
+        <div class="kpi-foot"><span class="trend-up">↑</span> Mejoró vs sesión anterior</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-stripe stripe-red"></div>
+        <div class="kpi-top">
+          <div class="kpi-icon icon-r">🔍</div>
+          <div class="kpi-badge badge-r">3 críticos</div>
+        </div>
+        <div class="kpi-val">12</div>
+        <div class="kpi-name">Hallazgos</div>
+        <div class="kpi-foot"><span class="trend-down">!</span> 3 críticos sin resolver</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-stripe stripe-amber"></div>
+        <div class="kpi-top">
+          <div class="kpi-icon icon-a">⏱</div>
+          <div class="kpi-badge badge-a">8 tareas</div>
+        </div>
+        <div class="kpi-val">2m30</div>
+        <div class="kpi-name">Tiempo medio/tarea</div>
+        <div class="kpi-foot">Promedio de 24 observaciones</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-stripe stripe-navy"></div>
+        <div class="kpi-top">
+          <div class="kpi-icon icon-b">🎯</div>
+          <div class="kpi-badge badge-b">Mejorable</div>
+        </div>
+        <div class="kpi-val">60</div>
+        <div class="kpi-name">Score UX</div>
+        <div class="kpi-foot">Objetivo: ≥ 80 — Aceptable</div>
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="section-head">
+      <div class="section-title">Ir a sección</div>
+    </div>
+    <div class="actions-row">
+      <a class="action" href="#">
+        <div class="action-ico">📋</div>
+        <div class="action-lbl">Plan</div>
+        <div class="action-sub">Contexto y objetivos</div>
+      </a>
+      <a class="action" href="#">
+        <div class="action-ico">📝</div>
+        <div class="action-lbl">Guion</div>
+        <div class="action-sub">Tareas del test</div>
+      </a>
+      <a class="action" href="#" style="border-color:var(--navy); background:var(--navy-light);">
+        <div class="action-ico" style="background:white;">👁</div>
+        <div class="action-lbl" style="color:var(--navy);">Observaciones</div>
+        <div class="action-sub" style="color:var(--navy); opacity:0.7;">Activo ahora</div>
+      </a>
+      <a class="action" href="#">
+        <div class="action-ico">🔍</div>
+        <div class="action-lbl">Hallazgos</div>
+        <div class="action-sub">Problemas UX</div>
+      </a>
+      <a class="action" href="#">
+        <div class="action-ico">📊</div>
+        <div class="action-lbl">Reportes</div>
+        <div class="action-sub">Resultados finales</div>
+      </a>
+    </div>
+
+    <!-- LOWER GRID -->
+    <div class="lower-grid">
+      <div class="panel">
+        <div class="panel-title">📊 Distribución de resultados</div>
+        <div class="chart-item">
+          <div class="ci-label">Éxito (Sí)</div>
+          <div class="ci-track"><div class="ci-fill fill-g" style="width:60%"></div></div>
+          <div class="ci-pct">60%</div>
+          <div class="ci-count">14 obs.</div>
+        </div>
+        <div class="chart-item">
+          <div class="ci-label">Con ayuda</div>
+          <div class="ci-track"><div class="ci-fill fill-a" style="width:25%"></div></div>
+          <div class="ci-pct">25%</div>
+          <div class="ci-count">6 obs.</div>
+        </div>
+        <div class="chart-item">
+          <div class="ci-label">Falló (No)</div>
+          <div class="ci-track"><div class="ci-fill fill-r" style="width:15%"></div></div>
+          <div class="ci-pct">15%</div>
+          <div class="ci-count">4 obs.</div>
+        </div>
+
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border-light);">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600;">Distribución por severidad</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="padding:3px 10px;background:#fee2e2;color:#dc2626;border-radius:10px;font-size:10px;font-weight:700;">Crítica: 3</span>
+            <span style="padding:3px 10px;background:#ffedd5;color:#ea580c;border-radius:10px;font-size:10px;font-weight:700;">Alta: 4</span>
+            <span style="padding:3px 10px;background:#fef3c7;color:#d97706;border-radius:10px;font-size:10px;font-weight:700;">Media: 3</span>
+            <span style="padding:3px 10px;background:#dcfce7;color:#16a34a;border-radius:10px;font-size:10px;font-weight:700;">Baja: 2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">📁 Planes recientes</div>
+        <div class="pln">
+          <div class="pln-dot" style="background:var(--green-500)"></div>
+          <div class="pln-body">
+            <div class="pln-name">Plan Alpha — Login</div>
+            <div class="pln-meta">Actualizado hoy · 24 obs.</div>
+          </div>
+          <div class="tag tag-active">Activo</div>
+          <div class="pln-arr">›</div>
+        </div>
+        <div class="pln">
+          <div class="pln-dot" style="background:var(--amber-500)"></div>
+          <div class="pln-body">
+            <div class="pln-name">Plan Beta — Dashboard</div>
+            <div class="pln-meta">Ayer · 8 obs.</div>
+          </div>
+          <div class="tag tag-draft">Borrador</div>
+          <div class="pln-arr">›</div>
+        </div>
+        <div class="pln">
+          <div class="pln-dot" style="background:#94a3b8"></div>
+          <div class="pln-body">
+            <div class="pln-name">Plan Gamma — Forms</div>
+            <div class="pln-meta">Hace 3 días · 31 obs.</div>
+          </div>
+          <div class="tag tag-done">Completado</div>
+          <div class="pln-arr">›</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER ACTION + TOASTS -->
+    <div class="action-footer">
+      <button class="btn-primary">
+        <div class="btn-plus">+</div>
+        Nuevo Plan de Prueba
+      </button>
+      <div class="toast-stack">
+        <div class="toast">
+          <div class="t-icon t-icon-ok">✓</div>
+          <div>
+            <div class="t-msg">Plan guardado</div>
+            <div class="t-sub">Los datos se actualizaron correctamente</div>
+          </div>
+          <div class="t-close">×</div>
+          <div class="toast-bar toast-bar-green"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DESIGN NOTES -->
+<div class="notes-grid">
+  <div class="note-card">
+    <div class="note-header">
+      <div class="note-icon ni-g">🧩</div>
+      <div class="note-title">Leyes de Gestalt</div>
+    </div>
+    <ul class="note-list">
+      <li><strong>Proximidad:</strong> Los 4 KPIs en fila continua forman una unidad semántica de "métricas".</li>
+      <li><strong>Similitud:</strong> Todas las tarjetas de acción tienen igual forma, tamaño y estructura.</li>
+      <li><strong>Figura-fondo:</strong> Superficies blancas sobre fondo slate-100 generan profundidad.</li>
+      <li><strong>Continuidad:</strong> Las líneas del stepper dirigen el ojo de izquierda a derecha siguiendo el flujo de trabajo.</li>
+    </ul>
+  </div>
+  <div class="note-card">
+    <div class="note-header">
+      <div class="note-icon ni-b">🎯</div>
+      <div class="note-title">Heurísticas aplicadas</div>
+    </div>
+    <ul class="note-list">
+      <li><strong>H1 — Visibilidad:</strong> Stepper muestra paso actual; toast confirma cada acción.</li>
+      <li><strong>H5 — Prevención errores:</strong> Botón CTA deshabilitado cuando no hay cambios.</li>
+      <li><strong>H6 — Reconocimiento:</strong> Breadcrumb siempre visible; acción activa resaltada en azul.</li>
+      <li><strong>H9 — Recuperación:</strong> Toast de error con mensaje descriptivo y ruta de acción.</li>
+    </ul>
+  </div>
+  <div class="note-card">
+    <div class="note-header">
+      <div class="note-icon ni-a">💡</div>
+      <div class="note-title">Diseño emocional (Norman)</div>
+    </div>
+    <ul class="note-list">
+      <li><strong>Visceral:</strong> Hover con elevación (translateY), transiciones fluidas, colores semánticos que generan confianza.</li>
+      <li><strong>Conductual:</strong> El sistema responde visiblemente a cada acción. El stepper da sensación de progreso y logro.</li>
+      <li><strong>Reflexivo:</strong> Score UX con color progresivo (rojo→verde) motiva al evaluador a mejorar resultados.</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
