@@ -4,7 +4,7 @@
 **Nivel de fidelidad:** Baja — estructura, jerarquía y flujo  
 **Herramienta:** HTML/CSS (archivo `lofi.html`)  
 **Fecha:** 15/05/2025  
-**Estudiante:** [Tu nombre]
+**Estudiante:** Mateo Auz
 
 ---
 

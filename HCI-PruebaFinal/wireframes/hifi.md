@@ -4,7 +4,7 @@
 **Nivel de fidelidad:** Alta — diseño final con todos los detalles visuales  
 **Herramienta:** HTML/CSS (archivo `hifi.html`)  
 **Fecha:** 15/05/2025  
-**Estudiante:** [Tu nombre]
+**Estudiante:** Mateo Auz
 
 ---
 

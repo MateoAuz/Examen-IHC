@@ -1,6 +1,6 @@
 # Evaluación Heurística — Usability Test Dashboard 2.0
 
-**Evaluador:** [Tu nombre]  
+**Evaluador:** Mateo Auz
 **Fecha:** 15/05/2025  
 **Metodología:** 10 Heurísticas de Nielsen  
 **Sistema evaluado:** Usability Test Dashboard 2.0 (React + TypeScript + Supabase)

@@ -4,7 +4,7 @@
 **Nivel de fidelidad:** Media — espaciado, colores base, tipografía, componentes  
 **Herramienta:** HTML/CSS (archivo `midfi.html`)  
 **Fecha:** 15/05/2025  
-**Estudiante:** [Tu nombre]
+**Estudiante:** Mateo Auz
 
 ---
 
